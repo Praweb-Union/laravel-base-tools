@@ -1,1 +1,1 @@
-<?phpnamespace Praweb\BaseTools;class BaseComponent extends \Livewire\Component{ //}
+<?phpnamespace Praweb\BaseTools;class BaseComponent extends \Livewire\Component{    }

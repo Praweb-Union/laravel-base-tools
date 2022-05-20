@@ -9,5 +9,12 @@
          "psr-4": {
              "Praweb\\BaseTools\\": "src/"
          }
-    }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Praweb\\BaseTools\\BaseToolsServiceProvider"
+            ],
+        }
+    },
 }
