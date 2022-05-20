@@ -1,0 +1,13 @@
+{
+    "name": "praweb/laravel-base-tools",
+    "description": "Base tools and components for laravel application",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+         "psr-4": {
+             "Praweb\\BaseTools\\": "src/"
+         }
+    },
+}
