@@ -14,7 +14,7 @@
         "laravel": {
             "providers": [
                 "Praweb\\BaseTools\\BaseToolsServiceProvider"
-            ],
+            ]
         }
     }
 }
