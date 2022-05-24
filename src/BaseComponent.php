@@ -8,7 +8,7 @@ abstract class BaseComponent extends \Livewire\Component
 {
     public Model $object;
 
-    public function mount($id = null)
+    public function mount($id = null): void
     {
         $this->object = $id ? $this->getModel()::findOrFail($id) : new $this->getModel();
     }
@@ -25,7 +25,7 @@ abstract class BaseComponent extends \Livewire\Component
         $this->object->save();
     }
 
-    public function delete()
+    public function delete(): void
     {
         $this->object->delete();
         $this->emit('render');
