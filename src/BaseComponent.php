@@ -3,20 +3,28 @@
 namespace Praweb\BaseTools;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Livewire\Component;
 
-abstract class BaseComponent extends \Livewire\Component
+abstract class BaseComponent extends Component
 {
     public Model $object;
+    public Collection $objects;
 
-    public function mount($id = null): void
+    public bool $isCreateModalOpened = false;
+
+    public function openCreateModal(): void
     {
-        $this->object = $id ? $this->getModel()::findOrFail($id) : new $this->getModel();
+        $this->object = new ($this->getModel())();
+        $this->isCreateModalOpened = true;
+        $this->resetErrorBag();
     }
 
-    public function create(): void
+    public function create()
     {
         $this->validate();
-        $this->getModel()::create($this->getModelAttributes());
+        $this->object->save();
+        $this->closeAllModals();
     }
 
     public function update(int $id): void
@@ -25,10 +33,14 @@ abstract class BaseComponent extends \Livewire\Component
         $this->object->save();
     }
 
-    public function delete(): void
+    public function delete(int $id): void
     {
-        $this->object->delete();
-        $this->emit('render');
+        $this->getModel()::findOrFail($id)->delete();
+    }
+
+    public function closeAllModals(): void
+    {
+        $this->isCreateModalOpened = false;
     }
 
     abstract protected function getModelAttributes(): array;

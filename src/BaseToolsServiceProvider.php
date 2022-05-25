@@ -2,7 +2,9 @@
 
 namespace Praweb\BaseTools;
 
-class BaseToolsServiceProvider extends \Illuminate\Support\ServiceProvider
+use Illuminate\Support\ServiceProvider;
+
+class BaseToolsServiceProvider extends ServiceProvider
 {
     public function boot()
     {
