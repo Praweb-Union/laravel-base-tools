@@ -4,7 +4,6 @@
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",
-    "require": {},
     "autoload": {
          "psr-4": {
              "Praweb\\BaseTools\\": "src/"
@@ -16,5 +15,18 @@
                 "Praweb\\BaseTools\\BaseToolsServiceProvider"
             ]
         }
+    },
+    "require": {
+
+        "livewire/livewire": "*",
+        "phpunit/phpunit": "*"
+    },
+    "scripts": {
+    		"test": [
+    	  		"vendor/bin/phpunit"
+    		]
+    },
+    "require-dev": {
+        "orchestra/testbench": "*"
     }
 }
