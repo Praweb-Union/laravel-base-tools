@@ -2,6 +2,9 @@
 
 namespace Praweb\BaseTools;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -16,9 +19,6 @@ abstract class BaseComponent extends Component
     use WithSearch;
     use WithSort;
 
-    // Количество объектов на страницу
-    protected const PER_PAGE = 10;
-
     // Базовый запрос в бд для всех объектов. Как правило, Model::all() но можно добавить условия
     protected Builder $query;
 
@@ -32,7 +32,7 @@ abstract class BaseComponent extends Component
 
     public function mount(): void
     {
-        $this->object = new ($this->getModel());
+        $this->object = new ($this->getModel())();
 
         if (property_exists($this, 'search')) {
             $this->search = '';
@@ -45,7 +45,7 @@ abstract class BaseComponent extends Component
         $this->setUpFields();
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         $this->query = $this->getModel()::query();
 
@@ -53,7 +53,7 @@ abstract class BaseComponent extends Component
             'objects' => $this
                 ->search()
                 ->sort()
-                ->query->paginate(self::PER_PAGE)
+                ->query->paginate($this->perPage())
         ]);
     }
 
@@ -64,7 +64,7 @@ abstract class BaseComponent extends Component
         $this->resetErrorBag();
     }
 
-    public function create()
+    public function create(): void
     {
         $this->validate();
         $this->object->save();
@@ -85,7 +85,7 @@ abstract class BaseComponent extends Component
     public function closeAllModals(): void
     {
         $this->isModalOpened = false;
-        $this->object = new ($this->getModel());
+        $this->object = new ($this->getModel())();
     }
 
     public static function sortDirection(Collection $sort, string $column): string|null
@@ -93,7 +93,7 @@ abstract class BaseComponent extends Component
         return $sort->get('column') === $column ? $sort->get('direction') : null;
     }
 
-    public function rules()
+    public function rules(): array
     {
         $fields = collect();
 
@@ -104,14 +104,24 @@ abstract class BaseComponent extends Component
         return $fields->toArray();
     }
 
-    public function hydrate()
+    public function hydrate(): void
     {
         foreach ($this->fields as $key => $field) {
             $this->fields->put(
                 $key,
-                new Field($field['field'], $field['columnName'], InputType::from($field['type']), $field['validation'])
+                new $field['className'](
+                    $field['field'],
+                    $field['columnName'],
+                    $field['validation'],
+                    $field['showInTableClassName']
+                )
             );
         }
+    }
+
+    protected function perPage(): int
+    {
+        return 10;
     }
 
     // Возвращаем класс модели
