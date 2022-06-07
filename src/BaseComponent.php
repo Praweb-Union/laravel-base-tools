@@ -30,6 +30,10 @@ abstract class BaseComponent extends Component
 
     public Collection $fields;
 
+    protected bool $withPaginate = true;
+    protected bool $withSort = true;
+    protected bool $withSearch = true;
+
     public function mount(): void
     {
         $this->object = new ($this->getModel())();
@@ -49,11 +53,25 @@ abstract class BaseComponent extends Component
     {
         $this->query = $this->getModel()::query();
 
-        return view('livewire.category', [
-            'objects' => $this
-                ->search()
-                ->sort()
-                ->query->paginate($this->perPage())
+        if($this->withSearch) {
+            $this->search();
+        }
+
+        if($this->withSort) {
+            $this->sort();
+        }
+
+        if($this->withPaginate) {
+            $objects = $this->query->paginate($this->perPage());
+        } else {
+            $objects = $this->query->get();
+        }
+
+        $this->checkForErrors();
+
+        return view('livewire.crud', [
+            'objects' => $objects,
+            'withPaginate' => $this->withPaginate,
         ]);
     }
 
