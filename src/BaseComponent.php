@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Praweb\BaseTools\Exceptions\MultipleFieldsException;
 use Praweb\BaseTools\Traits\WithSearch;
 use Praweb\BaseTools\Traits\WithSort;
 
@@ -140,6 +141,16 @@ abstract class BaseComponent extends Component
     protected function perPage(): int
     {
         return 10;
+    }
+
+    private function checkForErrors()
+    {
+
+        $fields = collect(collect($this->fields)->transform(fn ($item) => $item->toArray()))->pluck('field');
+
+        if($fields->count() !== $fields->unique()->count()) {
+            throw new MultipleFieldsException('Обнаружено дублирование полей в компоненте');
+        }
     }
 
     // Возвращаем класс модели
