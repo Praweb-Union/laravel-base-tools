@@ -113,6 +113,7 @@ abstract class Field implements FieldInterface, Arrayable
         ];
     }
 
-    abstract public function getFieldType(): string;
+    abstract public function render();
 
+    abstract public function getFieldType(): string;
 }

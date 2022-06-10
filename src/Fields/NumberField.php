@@ -2,7 +2,7 @@
 
 namespace Praweb\BaseTools\Fields;
 
-class NumberField extends Field
+class NumberField extends InputWithTypeField
 {
     public function getFieldType(): string
     {

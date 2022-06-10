@@ -2,7 +2,7 @@
 
 namespace Praweb\BaseTools\Fields;
 
-class PasswordField extends Field
+class PasswordField extends InputWithTypeField
 {
     public function getFieldType(): string
     {
