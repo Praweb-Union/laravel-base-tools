@@ -4,8 +4,11 @@
             <x-offcanvas.right :is-modal-opened="$isModalOpened" title="Форма создания категории">
                 <form wire:submit.prevent="create">
                     @foreach($fields as $field)
-                        <x-input.text type="{{ $field->getFieldType() }}" label="{{ $field->getColumnName() }}" wire:model.defer="object.{{ $field->getField() }}"/>
-                        <x-validation-error for="object.{{ $field->getField() }}"/>
+                        <div class="my-2">
+                            <x-input.text type="{{ $field->getFieldType() }}" label="{{ $field->getColumnName() }}" wire:model.defer="object.{{ $field->getField() }}"/>
+                            <x-validation-error for="object.{{ $field->getField() }}"/>
+                        </div>
+
                     @endforeach
                     <x-button.green type="submit">Сохранить</x-button.green>
                 </form>

@@ -3,6 +3,7 @@
 namespace Praweb\BaseTools\Fields;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\View\View;
 use Praweb\BaseTools\Interfaces\FieldInterface;
 
 abstract class Field implements FieldInterface, Arrayable
