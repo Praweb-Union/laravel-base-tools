@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Praweb\BaseTools\Exceptions\MultipleFieldsException;
 use Praweb\BaseTools\Traits\WithSearch;
@@ -19,6 +20,8 @@ abstract class BaseComponent extends Component
     use WithPagination;
     use WithSearch;
     use WithSort;
+
+    use WithFileUploads;
 
     // Базовый запрос в бд для всех объектов. Как правило, Model::all() но можно добавить условия
     protected Builder $query;
