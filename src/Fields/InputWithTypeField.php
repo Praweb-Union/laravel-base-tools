@@ -17,7 +17,7 @@ abstract class InputWithTypeField extends Field
             [
                 'type' => $this->getFieldType(),
                 'label' => $this->getColumnName(),
-                'wire:model.defer' => 'object.' . $this->getField()
+                'wire:model.defer' => $this->getField()
             ]
         )]);
     }

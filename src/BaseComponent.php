@@ -12,6 +12,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Praweb\BaseTools\Exceptions\MultipleFieldsException;
+use Praweb\BaseTools\Fields\FileField;
+use Praweb\BaseTools\Interfaces\FieldInterface;
 use Praweb\BaseTools\Traits\WithSearch;
 use Praweb\BaseTools\Traits\WithSort;
 
@@ -89,6 +91,12 @@ abstract class BaseComponent extends Component
     public function create(): void
     {
         $this->validate();
+        $this->fields->filter(fn (FieldInterface $field) => $field instanceof FileField)
+            ->each(function (FileField $field) {
+                $this->{$field->getField()}->store($this->{$field->getField()}->getClientOriginalName());
+                $this->object->{$field->getField()} = $this->{$field->getField()}->getClientOriginalName();
+            });
+
         $this->object->save();
         $this->closeAllModals();
     }
@@ -120,7 +128,7 @@ abstract class BaseComponent extends Component
         $fields = collect();
 
         foreach ($this->fields as $field) {
-            $fields->put('object.' . $field->getField(), $field->getValidation());
+            $fields->put($field->getField(), $field->getValidation());
         }
 
         return $fields->toArray();

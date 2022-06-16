@@ -2,13 +2,12 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <x-offcanvas.right :is-modal-opened="$isModalOpened" title="Форма создания категории">
-                <form wire:submit.prevent="create">
+                <form wire:submit.prevent="create" enctype="multipart/form-data">
                     @foreach($fields as $field)
-                        <div class="my-2">
-                            <x-input.text type="{{ $field->getFieldType() }}" label="{{ $field->getColumnName() }}" wire:model.defer="object.{{ $field->getField() }}"/>
-                            <x-validation-error for="object.{{ $field->getField() }}"/>
+                        <div class="mb-2">
+                            {!! $field->render() !!}
+                            <x-validation-error for="{{ $field->getField() }}"/>
                         </div>
-
                     @endforeach
                     <x-button.green type="submit">Сохранить</x-button.green>
                 </form>
@@ -32,8 +31,8 @@
 
                                     @foreach($fields as $field)
                                         <x-table.heading
-                                            direction="{{ \Praweb\BaseTools\BaseComponent::sortDirection($sort, $field->getField()) }}"
-                                            wire:click="updateSort('{{ $field->getField() }}')" sortable>
+                                                direction="{{ \Praweb\BaseTools\BaseComponent::sortDirection($sort, $field->getField()) }}"
+                                                wire:click="updateSort('{{ $field->getField() }}')" sortable>
                                             {{ $field->getColumnName() }}
                                         </x-table.heading>
                                     @endforeach
@@ -46,7 +45,7 @@
                                                     <div class="flex items-center">
                                                         <div class="ml-4">
                                                             <div class="text-sm font-medium text-gray-900">
-                                                                {!! $field->getShowInTableClassName()::render(($object->{$field->getField()})) !!}
+                                                                {!! $field->getShowInTableClassName()::render(($object->{str_replace('object.', '', $field->getField())})) !!}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -67,7 +66,7 @@
                                                                      viewBox="0 0 20 20"
                                                                      fill="currentColor" aria-hidden="true">
                                                                     <path
-                                                                        d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+                                                                            d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
                                                                 </svg>
                                                             </button>
                                                         </div>

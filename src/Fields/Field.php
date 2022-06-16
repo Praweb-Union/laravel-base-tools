@@ -35,7 +35,13 @@ abstract class Field implements FieldInterface, Arrayable
      */
     public function getField(): string
     {
-        return $this->field;
+        if($this instanceof FileField) {
+            return $this->field;
+        } elseif(!str_contains($this->field, 'object.')) {
+            return 'object.' . $this->field;
+        } else {
+            return $this->field;
+        }
     }
 
     /**
