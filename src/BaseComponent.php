@@ -86,7 +86,7 @@ abstract class BaseComponent extends Component
 
     public function openModal(int $id = null): void
     {
-        $this->object = $id ? $this->getModel()::findOrFail($id) : new ($this->getModel())()();
+        $this->object = $id ? $this->getModel()::findOrFail($id) : new ($this->getModel())();
         $this->isModalOpened = true;
         $this->resetErrorBag();
     }
@@ -118,7 +118,7 @@ abstract class BaseComponent extends Component
     public function closeAllModals(): void
     {
         $this->isModalOpened = false;
-        $this->object = new ($this->getModel())()();
+        $this->object = new ($this->getModel())();
     }
 
     public function rules(): array
