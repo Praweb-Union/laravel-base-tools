@@ -45,7 +45,7 @@ abstract class BaseComponent extends Component
 
     public function mount(): void
     {
-        $this->object = new ($this->getModel())()();
+        $this->object = new ($this->getModel())();
 
         if (property_exists($this, 'search')) {
             $this->search = '';
