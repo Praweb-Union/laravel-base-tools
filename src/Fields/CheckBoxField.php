@@ -13,7 +13,6 @@ class CheckBoxField extends Field
             [
                 'attributes' => new ComponentAttributeBag(
                     [
-                        'type' => $this->getFieldType(),
                         'label' => $this->getColumnName(),
                         'wire:model.defer' => $this->getField()
                     ]
