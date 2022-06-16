@@ -30,11 +30,13 @@
                                 <x-slot name="head">
 
                                     @foreach($fields as $field)
-                                        <x-table.heading
+                                        @if($field->getShowInTableClassName() !== \Praweb\BaseTools\ShowInTables\EmptyCell::class)
+                                            <x-table.heading
                                                 direction="{{ \Praweb\BaseTools\BaseComponent::sortDirection($sort, $field->getField()) }}"
                                                 wire:click="updateSort('{{ $field->getField() }}')" sortable>
-                                            {{ $field->getColumnName() }}
-                                        </x-table.heading>
+                                                {{ $field->getColumnName() }}
+                                            </x-table.heading>
+                                        @endif
                                     @endforeach
                                 </x-slot>
                                 <x-slot name="body">
@@ -66,7 +68,7 @@
                                                                      viewBox="0 0 20 20"
                                                                      fill="currentColor" aria-hidden="true">
                                                                     <path
-                                                                            d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+                                                                        d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
                                                                 </svg>
                                                             </button>
                                                         </div>
