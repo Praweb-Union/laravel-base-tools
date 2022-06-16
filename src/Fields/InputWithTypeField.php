@@ -13,12 +13,14 @@ abstract class InputWithTypeField extends Field
 
     public function render(): View
     {
-        return \view('components.input.text', ['attributes' => new ComponentAttributeBag(
-            [
-                'type' => $this->getFieldType(),
-                'label' => $this->getColumnName(),
-                'wire:model.defer' => $this->getField()
-            ]
-        )]);
+        return \view('components.input.text', [
+            'attributes' => new ComponentAttributeBag(
+                [
+                    'type' => $this->getFieldType(),
+                    'label' => $this->getColumnName(),
+                    'wire:model.defer' => $this->getField()
+                ]
+            )
+        ]);
     }
 }

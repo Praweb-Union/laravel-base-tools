@@ -6,10 +6,10 @@ use Illuminate\View\ComponentAttributeBag;
 
 class TextareaField extends Field
 {
-
     public function render()
     {
-        return view('components.input.textarea',
+        return view(
+            'components.input.textarea',
             [
                 'attributes' => new ComponentAttributeBag(
                     [
@@ -17,11 +17,7 @@ class TextareaField extends Field
                         'wire:model.defer' => $this->getField(),
                     ]
                 )
-            ]);
-    }
-
-    public function getFieldType(): string
-    {
-        return 'text';
+            ]
+        );
     }
 }

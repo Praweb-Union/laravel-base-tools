@@ -1,4 +1,5 @@
 <?php
+
 namespace Praweb\BaseTools\ShowInTables;
 
 use Illuminate\View\View;

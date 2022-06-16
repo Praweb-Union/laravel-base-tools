@@ -21,9 +21,4 @@ class CheckBoxField extends Field
             ]
         );
     }
-
-    public function getFieldType(): string
-    {
-        return 'checkbox';
-    }
 }

@@ -1,9 +1,10 @@
 <?php
+
 namespace Praweb\BaseTools\Exceptions;
 
-use Symfony\Component\Console\Exception\LogicException;
+use Exception;
 
-class MultipleFieldsException extends \Exception
+class MultipleFieldsException extends Exception
 {
 
 }

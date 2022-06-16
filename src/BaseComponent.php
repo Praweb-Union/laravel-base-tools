@@ -12,8 +12,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Praweb\BaseTools\Exceptions\MultipleFieldsException;
+use Praweb\BaseTools\Fields\Field;
 use Praweb\BaseTools\Fields\FileField;
-use Praweb\BaseTools\Interfaces\FieldInterface;
 use Praweb\BaseTools\Traits\WithSearch;
 use Praweb\BaseTools\Traits\WithSort;
 
@@ -26,23 +26,26 @@ abstract class BaseComponent extends Component
     use WithFileUploads;
 
     // Базовый запрос в бд для всех объектов. Как правило, Model::all() но можно добавить условия
-    protected Builder $query;
-
-    // Модель для круда
     public Model $object;
 
-    // Флаг для модального окна. Один как для создания, так и для редактирования
+    // Модель для круда
     public bool $isModalOpened = false;
 
+    // Флаг для модального окна. Один как для создания, так и для редактирования
     public Collection $fields;
-
+    protected Builder $query;
     protected bool $withPaginate = true;
     protected bool $withSort = true;
     protected bool $withSearch = true;
 
+    public static function sortDirection(Collection $sort, string $column): string|null
+    {
+        return $sort->get('column') === $column ? $sort->get('direction') : null;
+    }
+
     public function mount(): void
     {
-        $this->object = new ($this->getModel())();
+        $this->object = new ($this->getModel())()();
 
         if (property_exists($this, 'search')) {
             $this->search = '';
@@ -59,15 +62,15 @@ abstract class BaseComponent extends Component
     {
         $this->query = $this->getModel()::query();
 
-        if($this->withSearch) {
+        if ($this->withSearch) {
             $this->search();
         }
 
-        if($this->withSort) {
+        if ($this->withSort) {
             $this->sort();
         }
 
-        if($this->withPaginate) {
+        if ($this->withPaginate) {
             $objects = $this->query->paginate($this->perPage());
         } else {
             $objects = $this->query->get();
@@ -83,7 +86,7 @@ abstract class BaseComponent extends Component
 
     public function openModal(int $id = null): void
     {
-        $this->object = $id ? $this->getModel()::findOrFail($id) : new ($this->getModel())();
+        $this->object = $id ? $this->getModel()::findOrFail($id) : new ($this->getModel())()();
         $this->isModalOpened = true;
         $this->resetErrorBag();
     }
@@ -91,7 +94,7 @@ abstract class BaseComponent extends Component
     public function create(): void
     {
         $this->validate();
-        $this->fields->filter(fn (FieldInterface $field) => $field instanceof FileField)
+        $this->fields->filter(fn(Field $field) => $field instanceof FileField)
             ->each(function (FileField $field) {
                 $this->{$field->getField()}->store($this->{$field->getField()}->getClientOriginalName());
                 $this->object->{$field->getField()} = $this->{$field->getField()}->getClientOriginalName();
@@ -115,12 +118,7 @@ abstract class BaseComponent extends Component
     public function closeAllModals(): void
     {
         $this->isModalOpened = false;
-        $this->object = new ($this->getModel())();
-    }
-
-    public static function sortDirection(Collection $sort, string $column): string|null
-    {
-        return $sort->get('column') === $column ? $sort->get('direction') : null;
+        $this->object = new ($this->getModel())()();
     }
 
     public function rules(): array
@@ -154,18 +152,18 @@ abstract class BaseComponent extends Component
         return 10;
     }
 
+    abstract protected function getModel(): string;
+
+    // Возвращаем класс модели
+
+    abstract protected function setUpFields(): void;
+
     private function checkForErrors()
     {
+        $fields = collect(collect($this->fields)->transform(fn($item) => $item->toArray()))->pluck('field');
 
-        $fields = collect(collect($this->fields)->transform(fn ($item) => $item->toArray()))->pluck('field');
-
-        if($fields->count() !== $fields->unique()->count()) {
+        if ($fields->count() !== $fields->unique()->count()) {
             throw new MultipleFieldsException('Обнаружено дублирование полей в компоненте');
         }
     }
-
-    // Возвращаем класс модели
-    abstract protected function getModel(): string;
-
-    abstract protected function setUpFields(): void;
 }

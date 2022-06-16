@@ -3,10 +3,8 @@
 namespace Praweb\BaseTools\Fields;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\View\View;
-use Praweb\BaseTools\Interfaces\FieldInterface;
 
-abstract class Field implements FieldInterface, Arrayable
+abstract class Field implements Arrayable
 {
     private string $field;
     private string $columnName;
@@ -35,13 +33,15 @@ abstract class Field implements FieldInterface, Arrayable
      */
     public function getField(): string
     {
-        if($this instanceof FileField) {
-            return $this->field;
-        } elseif(!str_contains($this->field, 'object.')) {
-            return 'object.' . $this->field;
-        } else {
+        if ($this instanceof FileField) {
             return $this->field;
         }
+
+        if (!str_contains($this->field, 'object.')) {
+            return 'object.' . $this->field;
+        }
+
+        return $this->field;
     }
 
     /**
@@ -121,6 +121,4 @@ abstract class Field implements FieldInterface, Arrayable
     }
 
     abstract public function render();
-
-    abstract public function getFieldType(): string;
 }

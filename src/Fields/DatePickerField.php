@@ -6,10 +6,10 @@ use Illuminate\View\ComponentAttributeBag;
 
 class DatePickerField extends Field
 {
-
     public function render()
     {
-        return view('components.input.datepicker',
+        return view(
+            'components.input.datepicker',
             [
                 'attributes' => new ComponentAttributeBag(
                     [
@@ -17,11 +17,7 @@ class DatePickerField extends Field
                         'wire:model.defer' => 'object.' . $this->getField(),
                     ]
                 )
-            ]);
-    }
-
-    public function getFieldType(): string
-    {
-        return 'text';
+            ]
+        );
     }
 }

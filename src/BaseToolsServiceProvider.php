@@ -9,9 +9,9 @@ class BaseToolsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../resources/views/components' => resource_path('views/components'),
-            __DIR__.'/../resources/views/livewire' => resource_path('views/livewire'),
+                             __DIR__ . '/../resources/views/components' => resource_path('views/components'),
+                             __DIR__ . '/../resources/views/livewire' => resource_path('views/livewire'),
 
-        ], 'base-tools-components');
+                         ], 'base-tools-components');
     }
 }
