@@ -1,0 +1,24 @@
+<?php
+
+namespace Praweb\BaseTools\Fields;
+
+use Illuminate\View\ComponentAttributeBag;
+
+class HtmlEditorField extends Field
+{
+
+    public function render()
+    {
+        return view(
+            'components.input.html-editor',
+            [
+                'attributes' => new ComponentAttributeBag(
+                    [
+                        'label' => $this->getColumnName(),
+                        'wire:model.defer' => 'object.' . $this->getField(),
+                    ]
+                )
+            ]
+        );
+    }
+}
