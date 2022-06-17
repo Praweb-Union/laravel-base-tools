@@ -19,7 +19,8 @@
     "require": {
         "php": "^8.1",
         "livewire/livewire": "*",
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "tinymce/tinymce": "dev-master"
     },
     "scripts": {
     		"test": [
