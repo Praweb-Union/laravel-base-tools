@@ -1,4 +1,4 @@
-@props(['label' => '', 'type' => 'text', 'id' => random_int(0, 1000)])
+@props(['label' => '', 'type' => 'text', 'id' => \Praweb\BaseTools\Fields\Field::getRandomId()])
 
 <div class="mb-3 xl:w-96">
     <label for="{{ $id }}" class="form-label inline-block mb-2 text-gray-700"

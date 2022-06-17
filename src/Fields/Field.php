@@ -12,6 +12,10 @@ abstract class Field implements Arrayable
     private string $className;
     private string $showInTableClassName;
 
+    public static function getRandomId(): string
+    {
+        return substr(str_shuffle(md5(microtime())), 0, 10);
+    }
 
     /**
      * @param string $field

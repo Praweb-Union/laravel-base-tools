@@ -4,7 +4,7 @@
             <x-offcanvas.right :is-modal-opened="$isModalOpened" title="Форма создания категории">
                 <form wire:submit.prevent="create" enctype="multipart/form-data">
                     @foreach($fields as $field)
-                        <div class="mb-2">
+                        <div class="mb-2">й
                             {!! $field->render() !!}
                             <x-validation-error for="{{ $field->getField() }}"/>
                         </div>
