@@ -15,7 +15,7 @@ class HtmlEditorField extends Field
                 'attributes' => new ComponentAttributeBag(
                     [
                         'label' => $this->getColumnName(),
-                        'wire:model.defer' => 'object.' . $this->getField(),
+                        'wire:model.defer' => $this->getField(),
                     ]
                 )
             ]
