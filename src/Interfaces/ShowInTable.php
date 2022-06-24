@@ -6,5 +6,5 @@ use Illuminate\View\View;
 
 interface ShowInTable
 {
-    public static function render(mixed $value): string|View|null;
+    public static function render(mixed $value, array $data = []): string|View|null;
 }

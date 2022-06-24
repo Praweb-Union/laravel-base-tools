@@ -1,7 +1,7 @@
 @props(['label' => '', 'id' => \Praweb\BaseTools\Fields\Field::getRandomId()])
 
 <div class="mb-3 xl:w-96">
-    <label for="{{ $id }}" class="form-label inline-block mb-2 text-gray-700"
+    <label for="{{ $id }}" class="form-check-label inline-block text-gray-800"
     >{{ $label }}</label>
     <input {{ $attributes }}
            class="

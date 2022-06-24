@@ -7,7 +7,7 @@ use Praweb\BaseTools\Interfaces\ShowInTable;
 
 class CheckboxCell implements ShowInTable
 {
-    public static function render(mixed $value): string|View|null
+    public static function render(mixed $value, array $data = []): string|View|null
     {
         return view('components.check-icon', ['value' => $value]);
     }

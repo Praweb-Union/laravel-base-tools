@@ -54,7 +54,6 @@ abstract class BaseComponent extends Component
         if (property_exists($this, 'sort')) {
             $this->sort = Collection::empty();
         }
-
         $this->setUpFields();
     }
 
@@ -78,7 +77,7 @@ abstract class BaseComponent extends Component
 
         $this->checkForErrors();
 
-        return view('livewire.crud', [
+        return view('praweb::livewire.crud', [
             'objects' => $objects,
             'withPaginate' => $this->withPaginate,
         ]);
@@ -141,7 +140,8 @@ abstract class BaseComponent extends Component
                     $field['field'],
                     $field['columnName'],
                     $field['validation'],
-                    $field['showInTableClassName']
+                    $field['showInTableClassName'],
+                    $field['data'],
                 )
             );
         }

@@ -4,7 +4,7 @@
             <x-offcanvas.right :is-modal-opened="$isModalOpened" title="Форма создания категории">
                 <form wire:submit.prevent="create" enctype="multipart/form-data">
                     @foreach($fields as $field)
-                        <div class="mb-2">й
+                        <div class="mb-2">
                             {!! $field->render() !!}
                             <x-validation-error for="{{ $field->getField() }}"/>
                         </div>
@@ -47,7 +47,7 @@
                                                     <div class="flex items-center">
                                                         <div class="ml-4">
                                                             <div class="text-sm font-medium text-gray-900">
-                                                                {!! $field->getShowInTableClassName()::render(($object->{str_replace('object.', '', $field->getField())})) !!}
+                                                                {!! $field->getShowInTableClassName()::render(($object->{str_replace('object.', '', $field->getField())}), $field->data) !!}
                                                             </div>
                                                         </div>
                                                     </div>

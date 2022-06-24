@@ -11,6 +11,7 @@ abstract class Field implements Arrayable
     private string $validation;
     private string $className;
     private string $showInTableClassName;
+    public array $data;
 
     public static function getRandomId(): string
     {
@@ -23,13 +24,14 @@ abstract class Field implements Arrayable
      * @param string $validation
      * @param string $showInTableClassName
      */
-    public function __construct(string $field, string $columnName, string $validation, string $showInTableClassName)
+    public function __construct(string $field, string $columnName, string $validation, string $showInTableClassName, array $data = [])
     {
         $this->field = $field;
         $this->columnName = $columnName;
         $this->validation = $validation;
         $this->className = get_class($this);
         $this->showInTableClassName = $showInTableClassName;
+        $this->data = $data;
     }
 
     /**
@@ -121,6 +123,7 @@ abstract class Field implements Arrayable
             'validation' => $this->getValidation(),
             'className' => $this->getClassName(),
             'showInTableClassName' => $this->getShowInTableClassName(),
+            'data' => $this->data,
         ];
     }
 
