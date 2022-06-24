@@ -1,5 +1,5 @@
 @props([
-'sortable' => null,
+'sortable' => false,
 'direction' => null,
 'multiColumn' => null,
 ])
