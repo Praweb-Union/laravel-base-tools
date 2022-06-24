@@ -9,7 +9,7 @@ class TextareaField extends Field
     public function render()
     {
         return view(
-            'components.input.textarea',
+            'praweb::components.input.textarea',
             [
                 'attributes' => new ComponentAttributeBag(
                     [

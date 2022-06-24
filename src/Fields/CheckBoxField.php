@@ -9,7 +9,7 @@ class CheckBoxField extends Field
     public function render()
     {
         return view(
-            'components.input.checkbox',
+            'praweb::components.input.checkbox',
             [
                 'attributes' => new ComponentAttributeBag(
                     [

@@ -13,7 +13,7 @@ abstract class InputWithTypeField extends Field
 
     public function render(): View
     {
-        return \view('components.input.text', [
+        return \view('praweb::components.input.text', [
             'attributes' => new ComponentAttributeBag(
                 [
                     'type' => $this->getFieldType(),

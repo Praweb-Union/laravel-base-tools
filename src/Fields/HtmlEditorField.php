@@ -10,7 +10,7 @@ class HtmlEditorField extends Field
     public function render()
     {
         return view(
-            'components.input.html-editor',
+            'praweb::components.input.html-editor',
             [
                 'attributes' => new ComponentAttributeBag(
                     [

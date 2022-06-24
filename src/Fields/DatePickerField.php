@@ -9,7 +9,7 @@ class DatePickerField extends Field
     public function render()
     {
         return view(
-            'components.input.datepicker',
+            'praweb::components.input.datepicker',
             [
                 'attributes' => new ComponentAttributeBag(
                     [
