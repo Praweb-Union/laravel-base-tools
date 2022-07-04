@@ -1,6 +1,6 @@
 <x-slot name="body">
-    <x-table.row>
-        <x-table.cell>
+    <x-praweb::table.row>
+        <x-praweb::table.cell>
             <div class="max-w-full mx-auto">
                 <button wire:click="openModal()"
                         type="button"
@@ -10,6 +10,6 @@
                                         </span>
                 </button>
             </div>
-        </x-table.cell>
-    </x-table.row>
+        </x-praweb::table.cell>
+    </x-praweb::table.row>
 </x-slot>
