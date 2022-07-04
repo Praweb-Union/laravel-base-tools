@@ -6,7 +6,7 @@
     "minimum-stability": "dev",
     "autoload": {
          "psr-4": {
-             "Praweb\\BaseTools\\": "/src"
+             "Praweb\\BaseTools\\": "packages/praweb/laravel-base-tools/src"
          }
     },
     "extra": {
