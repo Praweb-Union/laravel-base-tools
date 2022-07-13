@@ -18,5 +18,8 @@ trait WithSearch
     }
 
     // Реализуем и возвращаем имя поля модели, по которой будет идти поиск
-    abstract public static function getSearchColumn(): string;
+    public static function getSearchColumn(): ?string
+    {
+        return null;
+    }
 }

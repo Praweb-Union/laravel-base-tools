@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -24,6 +25,7 @@ abstract class BaseComponent extends Component
     use WithSort;
 
     use WithFileUploads;
+    use AuthorizesRequests;
 
     // Базовый запрос в бд для всех объектов. Как правило, Model::all() но можно добавить условия
     public Model $object;
@@ -37,6 +39,10 @@ abstract class BaseComponent extends Component
     protected bool $withPaginate = true;
     protected bool $withSort = true;
     protected bool $withSearch = true;
+
+    protected $listeners = [
+        'openModal'
+    ];
 
     public static function sortDirection(Collection $sort, string $column): string|null
     {
@@ -83,11 +89,13 @@ abstract class BaseComponent extends Component
         ]);
     }
 
-    public function openModal(int $id = null): void
+    public function openModal(int $id = null, string $source = null): void
     {
-        $this->object = $id ? $this->getModel()::findOrFail($id) : new ($this->getModel())();
-        $this->isModalOpened = true;
-        $this->resetErrorBag();
+        if(!$source || $source === str_replace('\\', '', get_class($this))) {
+            $this->object = $id ? $this->getModel()::findOrFail($id) : new ($this->getModel())();
+            $this->isModalOpened = true;
+            $this->resetErrorBag();
+        }
     }
 
     public function create(): void
