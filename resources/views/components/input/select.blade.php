@@ -1,4 +1,4 @@
-@props(['label' => '', 'id' => \Praweb\BaseTools\Fields\Field::getRandomId()])
+@props(['label' => '', 'id' => \Praweb\BaseTools\Fields\Field::getRandomId(), 'options'])
 <label class="form-check-label inline-block text-gray-800" for="{{ $id }}">
     {{ $label }}
 </label>
@@ -18,6 +18,7 @@
         transition
         ease-in-out
         m-0
+        mb-3
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
       "{{ $attributes }}>
         @foreach($options as $key => $value)
