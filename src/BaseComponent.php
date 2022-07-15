@@ -60,6 +60,8 @@ abstract class BaseComponent extends Component
         if (property_exists($this, 'sort')) {
             $this->sort = Collection::empty();
         }
+        
+        $this->fields = collect();
         $this->setUpFields();
     }
 
