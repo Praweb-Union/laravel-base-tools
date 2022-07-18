@@ -60,12 +60,12 @@ abstract class BaseComponent extends Component
         if (property_exists($this, 'sort')) {
             $this->sort = Collection::empty();
         }
-        
+
         $this->fields = collect();
         $this->setUpFields();
     }
 
-    public function render(): Factory|View|Application
+    public function render()
     {
         $this->query = $this->getModel()::query();
 
@@ -86,14 +86,14 @@ abstract class BaseComponent extends Component
         $this->checkForErrors();
 
         return view('praweb::livewire.crud', [
-            'objects' => $objects,
+            'objects'      => $objects,
             'withPaginate' => $this->withPaginate,
         ]);
     }
 
     public function openModal(int $id = null, string $source = null): void
     {
-        if(!$source || $source === str_replace('\\', '', get_class($this))) {
+        if (!$source || $source === str_replace('\\', '', get_class($this))) {
             $this->object = $id ? $this->getModel()::findOrFail($id) : new ($this->getModel())();
             $this->isModalOpened = true;
             $this->resetErrorBag();
@@ -166,7 +166,9 @@ abstract class BaseComponent extends Component
 
     // Возвращаем класс модели
 
-    abstract protected function setUpFields(): void;
+    protected function setUpFields(): void
+    {
+    }
 
     private function checkForErrors()
     {
